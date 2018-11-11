@@ -1,17 +1,24 @@
 package com.rohan.development.contractdrivendevelopmentsample.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
+@Document(collection = PersonModel.PERSON_COLLECTION)
 public class PersonModel {
+    public static final String PERSON_COLLECTION = "customer";
+    @NotBlank
+    @Id
     private String personId;
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
-
-    public PersonModel(String personId, String firstName, String lastName) {
-        this.personId = personId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+    @Valid
+    private Address address;
 
     public String getPersonId() {
         return personId;
@@ -37,6 +44,14 @@ public class PersonModel {
         this.lastName = lastName;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,11 +59,12 @@ public class PersonModel {
         PersonModel that = (PersonModel) o;
         return Objects.equals(getPersonId(), that.getPersonId()) &&
                 Objects.equals(getFirstName(), that.getFirstName()) &&
-                Objects.equals(getLastName(), that.getLastName());
+                Objects.equals(getLastName(), that.getLastName()) &&
+                Objects.equals(getAddress(), that.getAddress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPersonId(), getFirstName(), getLastName());
+        return Objects.hash(getPersonId(), getFirstName(), getLastName(), getAddress());
     }
 }
