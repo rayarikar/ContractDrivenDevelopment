@@ -91,7 +91,7 @@ public class PersonCreationDTO {
 
     public static PersonModel toPersonModel(PersonCreationDTO personCreationDTO) {
         PersonModel personModel = new PersonModel();
-        personModel.setPersonId(personModel.getPersonId());
+        personModel.setPersonId(personCreationDTO.getPersonId());
         personModel.setFirstName(personCreationDTO.getFirstName());
         personModel.setLastName(personCreationDTO.getLastName());
         Address address = new Address();

@@ -17,5 +17,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         LOGGER.info("All endpoints secured with no authentication required.");
         httpSecurity.authorizeRequests().antMatchers("/*").permitAll();
+        httpSecurity.csrf().disable();
     }
 }
