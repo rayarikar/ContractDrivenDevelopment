@@ -2,6 +2,7 @@ package com.rohan.development.contractdrivendevelopmentsample.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rohan.development.contractdrivendevelopmentsample.model.Address;
+import com.rohan.development.contractdrivendevelopmentsample.model.PersonModel;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -47,5 +48,14 @@ public class PersonDTO {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public static PersonDTO toPersonDTO(PersonModel personModel) {
+        PersonDTO personDTO = new PersonDTO();
+        personDTO.setPersonId(personModel.getPersonId());
+        personDTO.setFirstName(personModel.getFirstName());
+        personDTO.setLastName(personModel.getLastName());
+        personDTO.setAddress(personModel.getAddress());
+        return personDTO;
     }
 }
