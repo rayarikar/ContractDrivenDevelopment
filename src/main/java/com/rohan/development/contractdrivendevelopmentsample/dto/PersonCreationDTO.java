@@ -1,10 +1,12 @@
 package com.rohan.development.contractdrivendevelopmentsample.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rohan.development.contractdrivendevelopmentsample.model.Address;
 import com.rohan.development.contractdrivendevelopmentsample.model.PersonModel;
 
 import javax.validation.constraints.NotBlank;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PersonCreationDTO {
     @NotBlank
     private String personId;
