@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,6 +29,11 @@ public class PersonService {
         return savedPerson;
     }
 
+    public List<PersonModel> getAllPersons() {
+        LOGGER.info("Service Layer - Getting all people from person collection");
+        return personCustomRepository.getAllPersons();
+    }
+
     public PersonDTO fetchPersonByPersonId(String personId) {
         LOGGER.info("Getting person from Person collections by personId={}", personId);
         Optional<PersonModel> personModelOptional = personCustomRepository.findByPersonId(personId);
@@ -37,5 +43,10 @@ public class PersonService {
         }
         LOGGER.info("Returning found person for personId={}", personId);
         return PersonDTO.toPersonDTO(personModelOptional.get());
+    }
+
+    public PersonModel deletePersonById(String personId) {
+        LOGGER.info("Deleting person with personId={}", personId);
+        return personCustomRepository.deletePersonById(personId);
     }
 }

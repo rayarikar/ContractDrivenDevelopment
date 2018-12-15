@@ -1,6 +1,7 @@
 package com.rohan.development.contractdrivendevelopmentsample.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
@@ -12,6 +13,7 @@ public class PersonModel {
     public static final String PERSON_COLLECTION = "customer";
     @NotBlank
     @Id
+    @Indexed(background = true)
     private String personId;
     @NotBlank
     private String firstName;

@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -37,5 +38,24 @@ public class PersonCustomRepositoryImpl implements PersonCustomRepository {
         LOGGER.info("Attempting to save person with personId={}", personModel.getPersonId());
         PersonModel savedPerson = personRepository.save(personModel);
         return savedPerson;
+    }
+
+    @Override
+    public List<PersonModel> getAllPersons() {
+        LOGGER.info("Getting all people ids");
+        List<PersonModel> allPersonModels = personRepository.findAll();
+        return allPersonModels;
+    }
+
+    @Override
+    public PersonModel deletePersonById(String personId) {
+        LOGGER.info("Repository - Looking to delete person with personId={}", personId);
+        Optional<PersonModel> personModelOptional = personRepository.findById(personId);
+        if (!personModelOptional.isPresent()) {
+            LOGGER.info("Person not found with personId={}", personId);
+            return null;
+        }
+        personRepository.deleteById(personId);
+        return personModelOptional.get();
     }
 }
