@@ -39,8 +39,12 @@ public class PersonResourceBaseTest {
         PersonDTO personDTO = getTestPerson();
         PersonModel personModel = getPersonModel();
         Optional<PersonModel> personModelOptional = Optional.of(personModel);
-        when(personService.fetchPersonByPersonId(any())).thenReturn(personDTO);
+        List<PersonModel> personModelList = getPersonModelList();
+
         when(personCustomRepository.findByPersonId(any())).thenReturn(personModelOptional);
+        when(personCustomRepository.getAllPersons()).thenReturn(personModelList);
+        when(personService.fetchPersonByPersonId(any())).thenReturn(personDTO);
+        when(personService.getAllPersons()).thenReturn(personModelList);
 
         StandaloneMockMvcBuilder standaloneMockMvcBuilder = MockMvcBuilders.standaloneSetup(personResource);
         RestAssuredMockMvc.standaloneSetup(standaloneMockMvcBuilder);
@@ -83,6 +87,10 @@ public class PersonResourceBaseTest {
         address.setCountry("UK");
         personModel.setAddress(address);
         return personModel;
+    }
+
+    private List<PersonModel> getPersonModelList() {
+        return Arrays.asList(getPersonModel());
     }
 
 }
